@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edible People</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #fff;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-size: 2rem;
+            border-bottom: 2px solid black;
+        }
+
+        .comic-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .nav-buttons button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/edible-people-logo.png" alt="Edible People">
+    </header>
+    <div class="comic-container">
+        <img id="comic" src="" alt="Edible People">
+        <div class="nav-buttons">
+            <button id="prevBtn">Previous</button>
+            <span id="count"></span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const comicsList = [
+            'images/1.png',
+            'images/2.png',
+            'images/3.png',
+            'images/4.png',
+            'images/5.png',
+            'images/6.png',
+            'images/7.png',
+            'images/8.jpg',
+            'images/9.jpg',
+            'images/10.jpg',
+        ];
+        const comic = document.getElementById('comic');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const countText= document.getElementById('count');
+
+        let currentIdx = 0;
+
+        const updateComic = () => {
+            comic.src = comicsList[currentIdx];
+            countText.innerHTML = `${currentIdx + 1} / ${comicsList.length}`;
+        }
+
+        const goPreviousComic = () => {
+            if (currentIdx > 0) {
+                currentIdx--;
+            } else {
+                currentIdx = comicsList.length - 1;
+            }
+
+            updateComic();
+        }
+
+        const goNextComic = () => {
+            if (currentIdx < comicsList.length - 1) {
+                currentIdx++;
+            } else {
+                currentIdx = 0;
+            }
+
+            updateComic();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            goPreviousComic();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            goNextComic();
+        });
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') {
+                goPreviousComic();
+            } else if (event.key === 'ArrowRight') {
+                goNextComic();
+            }
+        });
+
+
+        updateComic();
+    </script>
+</body>
+</html>
